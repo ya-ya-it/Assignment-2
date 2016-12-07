@@ -1,8 +1,10 @@
 package assignment2;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Formatter;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -160,34 +162,48 @@ class WordSearch {
     public void fillEmpties() {
         CharRandom charRnd = new CharRandom();
         for (char[] puzzleBoard1 : puzzleBoard) {
-            for (int col = 0; col < puzzleBoard.length; col++){
-                if (puzzleBoard1[col] == ' '){
+            for (int col = 0; col < puzzleBoard.length; col++) {
+                if (puzzleBoard1[col] == ' ') {
                     puzzleBoard1[col] = charRnd.nextChar();
                 }
             }
         }
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        
+
         for (char[] table : puzzleBoard) {
             stringBuilder.append("\n");
-            for (int i = 0; i < puzzleBoard.length; i++){
+            for (int i = 0; i < puzzleBoard.length; i++) {
                 stringBuilder.append(puzzleBoard[i]).append(' ');
             }
         }
-        
+
         stringBuilder.append("\n");
         stringBuilder.append("Here are some words to find: ");
         stringBuilder.append("\n");
-        
+
         for (String word : wordList) {
             stringBuilder.append(word);
             stringBuilder.append("\n");
         }
-        
+
         return stringBuilder.toString();
     }
+
+    public void printToFile() {
+        try {
+            Formatter outputStream = new Formatter("puzzle.txt");
+
+            outputStream.format(toString() + "\n");
+
+            outputStream.close();
+
+        } catch (FileNotFoundException ex) {
+            System.out.println("Sorry, we cannot write to puzzle.txt");
+        }
+    }
 }
+

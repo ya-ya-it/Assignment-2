@@ -9,8 +9,7 @@ public class Main {
         myPuzzle.fillListWithWords();
         myPuzzle.fillEmpties();
         System.out.print(myPuzzle.toString());
-//
-//        myPuzzle.printToFile();
+        myPuzzle.printToFile();
     }
 
 }
