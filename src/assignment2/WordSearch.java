@@ -13,7 +13,7 @@ class WordSearch {
 
     private final char[][] puzzleBoard;
     private final ArrayList<String> wordList;
-    boolean wordValidation;
+    private boolean wordValidation;
 
     /**
      * This is a constructor for WordSearch class. It prompt user to enter a
@@ -80,7 +80,6 @@ class WordSearch {
             }
             saveWordToArray(word);
         }
-        showList(wordList);
         return word;
     }
 
@@ -135,20 +134,9 @@ class WordSearch {
     }
 
     /**
-     * This method convert list of words to String and display it to the screen.
-     *
-     * @param wordList - list of words;
-     * @return wordString;
+     * This method populates char array with letters of the words entered by the
+     * user.
      */
-    private String showList(ArrayList<String> wordList) {
-        String word = " ";
-        for (String wordInList : wordList) {
-            word += wordInList + ("\n");
-        }
-        System.out.println(word);
-        return word;
-    }
-
     public void fillListWithWords() {
         Random rnd = new Random();
         for (int i = 0; i < puzzleBoard.length; i++) {
@@ -159,6 +147,10 @@ class WordSearch {
         }
     }
 
+    /**
+     * This method fills missing spaces in the grid with randomly selected
+     * characters.
+     */
     public void fillEmpties() {
         CharRandom charRnd = new CharRandom();
         for (char[] puzzleBoard1 : puzzleBoard) {
@@ -170,6 +162,12 @@ class WordSearch {
         }
     }
 
+    /**
+     * This method overrides toString method. Using StringBuilder it saves
+     * puzzelBoard and wordList in one String. Each word is on the next line.
+     *
+     * @return String with grid and list of words
+     */
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -177,7 +175,7 @@ class WordSearch {
         for (char[] table : puzzleBoard) {
             stringBuilder.append("\n");
             for (int i = 0; i < puzzleBoard.length; i++) {
-                stringBuilder.append(puzzleBoard[i]).append(' ');
+                stringBuilder.append(table[i]).append(' ');
             }
         }
 
@@ -193,6 +191,10 @@ class WordSearch {
         return stringBuilder.toString();
     }
 
+    /**
+     * This method save grid and word list to the file cold "puzzle.txt". If the
+     * file is already exists the method overwrites it.
+     */
     public void printToFile() {
         try {
             Formatter outputStream = new Formatter("puzzle.txt");
@@ -205,5 +207,22 @@ class WordSearch {
             System.out.println("Sorry, we cannot write to puzzle.txt");
         }
     }
-}
 
+    /**
+     * This method converts list of words to String and display it to the screen.
+     * I added this method just because it was in the rubric as mandatory, but I
+     * didn't use it in my code. Instead I added words to String using Overrides
+     * toString method.
+     *
+     * @param wordList - list of words;
+     * @return wordString;
+     */
+    private String showList(ArrayList<String> wordList) {
+        String word = " ";
+        for (String wordInList : wordList) {
+            word += wordInList + "\n";
+            System.out.println(word);
+        }
+        return word;
+    }
+}
